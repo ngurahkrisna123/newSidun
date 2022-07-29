@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Pendatang extends Model
+{
+    use HasFactory;
+
+    protected $table = "pendatangs";
+
+    protected $fillable = [
+        'nik','nama','tglDatang','alamatAsal', 'alamatSekarang','agama','jk','pekerjaan',
+        'status','keterangan','kewarganegaraan'
+    ];
+
+    protected $primaryKey = 'idPendatang';
+}
