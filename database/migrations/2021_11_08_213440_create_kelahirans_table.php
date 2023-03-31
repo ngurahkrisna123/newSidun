@@ -16,6 +16,7 @@ class CreateKelahiransTable extends Migration
         Schema::create('kelahirans', function (Blueprint $table) {
             $table->bigIncrements('idKelahiran');
             $table->string('noAktaLahir')->unique();
+            $table->string('nama');
             $table->string('tempatLahir');
             $table->date('tglLahir');
             $table->string('namaAyah');

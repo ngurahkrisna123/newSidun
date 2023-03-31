@@ -157,17 +157,18 @@ class DashboardController extends Controller
             ->backgroundcolor($fillColors);;
         
         
+        //Grafik kelahiran kematian    
         $chartKelahiran = DB::table('kelahirans')
           ->select(
-              DB::raw("month(created_at) as month"),
+              DB::raw("year(tglLahir) as year"),
               DB::raw("count(*) as numberKelahiran")) 
           // ->orderBy("created_at")
-          ->groupBy('month')
+          ->groupBy('year')
           ->get();
         $arrayklhrn[] = ['Month', 'Number'];
         foreach($chartKelahiran as $key => $value)
         {
-          $arrayklhrn1[++$key] = [$value->month];
+          $arrayklhrn1[++$key] = [$value->year];
           $arrayklhrn2[$key] = [$value->numberKelahiran];
         }
         $labelKlhrn = array_values($arrayklhrn1);
@@ -176,20 +177,54 @@ class DashboardController extends Controller
 
         $chartKematian = DB::table('kematians')
           ->select(
-              DB::raw("month(created_at) as month"),
+              DB::raw("year(tglMeninggal) as year"),
               DB::raw("count(*) as numberKematian")) 
           // ->orderBy("created_at")
-          ->groupBy('month')
+          ->groupBy('year')
           ->get();
         $arraykmtn[] = ['Month', 'Number'];
         foreach($chartKematian as $key => $value)
         {
-          $arraykmtn1[++$key] = [$value->month];
+          $arraykmtn1[++$key] = [$value->year];
           $arraykmtn2[$key] = [$value->numberKematian];          
         }
         $labelKmtn = array_values($arraykmtn1);
         $datachartKematian = array_values($arraykmtn2);
 
+        $chartPendatang = DB::table('pendatangs')
+          ->select(
+              DB::raw("year(tglDatang) as year"),
+              DB::raw("count(*) as numberPendatang")) 
+          // ->orderBy("created_at")
+          ->groupBy('year')
+          ->get();
+        $arraypdtng[] = ['Month', 'Number'];
+        foreach($chartPendatang as $key => $value)
+        {
+          $arraypdtng1[++$key] = [$value->year];
+          $arraypdtng2[$key] = [$value->numberPendatang];
+        }
+        $labelPdtng = array_values($arraypdtng1);
+        $datachartPendatang = array_values($arraypdtng2);
+
+        $chartPindah = DB::table('pindahs')
+          ->select(
+              DB::raw("year(tglPindah) as year"),
+              DB::raw("count(*) as numberPindah")) 
+          // ->orderBy("created_at")
+          ->groupBy('year')
+          ->get();
+        $arraypndh[] = ['Month', 'Number'];
+        foreach($chartPindah as $key => $value)
+        {
+          $arraypndh1[++$key] = [$value->year];
+          $arraypndh2[$key] = [$value->numberPindah];
+        }
+        $labelPndh = array_values($arraypndh1);
+        $datachartPindah = array_values($arraypndh2);
+
+
+        ///////////////////////////////////////////////////////////////////
         $chartPertumbuhanPenduduk = new DashboardChart;
         // Charts::multiDatabase('areaspline', 'highcharts')
         $chartPertumbuhanPenduduk->title('Grafik Laju Penduduk');
@@ -198,16 +233,24 @@ class DashboardController extends Controller
         
         $chartPertumbuhanPenduduk->labels($labelKlhrn);
         $chartPertumbuhanPenduduk
-          ->dataset('Kelahiran','line', $datachartKelahiran)->options(['borderColor' => '#97d881']);
+          ->dataset('Kelahiran','line', $datachartKelahiran)->options(['borderColor' => '#66ff00']);
 
         $chartPertumbuhanPenduduk->labels($labelKmtn);  
         $chartPertumbuhanPenduduk
           ->dataset('Kematian','line', $datachartKematian)->options(['borderColor' => '#ff0000']);
         
-        
-         // $result[] = ['month','Kelahiran','Kematian'];
+        $chartPertumbuhanPenduduk->labels($labelPdtng);  
+        $chartPertumbuhanPenduduk
+          ->dataset('Pendatang','line', $datachartPendatang)->options(['borderColor' => '#0000ff']);
+
+        $chartPertumbuhanPenduduk->labels($labelPndh);  
+        $chartPertumbuhanPenduduk
+          ->dataset('Pindah','line', $datachartPindah)->options(['borderColor' => '#ffff00']);
+          
+          
+         // $result[] = ['year','Kelahiran','Kematian'];
         //   foreach ($kelahirans as $key => $value) {
-        //       $result[++$key] = [$value->month, (int)$value->numberKelahiran, (int)$value->numberKematian];
+        //       $result[++$key] = [$value->year, (int)$value->numberKelahiran, (int)$value->numberKematian];
         //   }
 
 

@@ -149,7 +149,7 @@
                                 <td>{{ $data->pekerjaan }}</td>
                                 <td>{{ $data->kewarganegaraan }}</td>
                                 <td>{{ $data->dusun }}</td>
-                                <td>{{ $data->tglBergabung }}</td>
+                                <td>{{ $data->tglbergabung }}</td>
                                 
                                 <td class="flex">
                                     <a href="/edit-penduduk/{{ $data->idPenduduk }}" >
@@ -257,15 +257,15 @@
                         scrollY:        "500px",
                         scrollX:        true,
                         scrollCollapse: true,
-                        paging:         false,
+                        paging:         true,
                         fixedColumns:   {
                             left: 0,
                             right: 1
                         }
                         
                     } );
-                    //.columns.adjust()
-                    //.responsive.recalc();
+                    // .columns.adjust()
+                    // .responsive.recalc();
             } );
         
         </script>

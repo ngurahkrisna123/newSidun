@@ -121,7 +121,7 @@
                                 </tr>
                                 <tr>
                                     <td>Tanggal Bergabung </td>
-                                    <td>{{ $data->tglBergabung }} </td>
+                                    <td>{{ $data->tglbergabung }} </td>
                                 </tr>
                             @empty
                             <td colspan="2"><b>NIK tidak ditemukan</b></td>
